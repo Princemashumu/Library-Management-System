@@ -9,8 +9,6 @@ The Library Management System is designed to manage a collection of books, autho
 - Open a terminal or command prompt.
 - Start the MongoDB shell by running:
 
-Copy code
-
 ````
 mongosh
 ````
@@ -19,9 +17,6 @@ You should now be in the MongoDB shell, ready to execute commands.
 
 ## Instructions
 # Step 1: Create Database LibraryDB
-javascript
-
-Copy code
 
 ```
 use LibraryDB
@@ -30,10 +25,6 @@ use LibraryDB
 # Step 2: Create Collections and Insert Documents
 
 Books Collection
-
-javascript
-
-Copy code
 
 ````
 db.books.insertMany([
@@ -49,13 +40,7 @@ db.books.insertMany([
   { _id: 10, title: "The Hobbit", author_id: 10, genres: ["Fantasy"], published_year: 1937, available: true }
 ])
 ````
-
-
 ### Authors Collection
-
-javascript
-
-Copy code
 ````
 db.authors.insertMany([
   { _id: 1, name: "George Orwell", nationality: "British", birth_year: 1903, death_year: 1950 },
@@ -72,10 +57,6 @@ db.authors.insertMany([
 ````
 
 ## Patrons Collection
-
-javascript
-
-Copy code
 ````
 db.patrons.insertMany([
   { _id: 1, name: "Alice Johnson", email: "alice@example.com", borrowed_books: [] },
@@ -91,137 +72,82 @@ db.patrons.insertMany([
 ])
 ````
 
-# Step 3: CRUD Operations
+## Step 3: CRUD Operations
 
-READ Operations
+### Find All Books
 
-Find All Books
-
-
-javascript
-
-Copy code
 ````
 db.books.find()
 ````
-Find a Specific Book by Title
-
-javascript
-
-Copy code
+### Find a Specific Book by Title
 ````
 db.books.find({ title: "To Kill a Mockingbird" })
 ````
-Find All Books by a Specific Author
-
-javascript
-
-Copy code
+### Find All Books by a Specific Author
 ````
 db.books.find({ author_id: 5 })
 ````
-Find All Available Books
-
-javascript
-
-Copy code
+### Find All Available Books
 ````
 db.books.find({ available: true })
 ````
-## UPDATE Operations
-Update Book Availability
-
-javascript
-
-Copy code
+# UPDATE Operations
+### Update Book Availability
 ````
 db.books.updateOne({ _id: 3 }, { $set: { available: false } })
 ````
 
-## Add a Genre to a Book
+### Add a Genre to a Book
 
-javascript
-
-Copy code
 ````
 db.books.updateOne({ _id: 8 }, { $addToSet: { genres: "Classic" } })
 ````
 
 ## Add a Borrowed Book to a Patron's Record
-
-javascript
-
-Copy code
 ````
 db.patrons.updateOne({ _id: 5 }, { $addToSet: { borrowed_books: 9 } })
 ````
 
-DELETE Operations
+# DELETE Operations
 
-## Delete a Book by Title
+### Delete a Book by Title
 
-javascript
-
-Copy code
 ````
 db.books.deleteOne({ title: "Brave New World" })
 ````
-## Delete an Author
-
-javascript
-
-Copy code
+### Delete an Author
 ````
 db.authors.deleteOne({ _id: 3 })
 ````
 # Step 4: Advanced Queries with Operators
 ### Find Books Published After 1950
 
-javascript
-
-Copy code
 ````
 db.books.find({ published_year: { $gt: 1950 } })
 ````
-## Find All American Authors
+### Find All American Authors
 
-javascript
-
-Copy code
 ````
 db.authors.find({ nationality: { $eq: "American" } })
 ````
-## Set All Books to Available
+### Set All Books to Available
 
-javascript
-
-Copy code
 ````
 db.books.updateMany({}, { $set: { available: true } })
 ````
 
-## Find All Books That Are Available and Published After 1950
+### Find All Books That Are Available and Published After 1950
 
-
-javascript
-
-Copy code
 ````
 db.books.find({ available: true, published_year: { $gt: 1950 } })
 ````
-## Find Authors Whose Names Contain "George"
+### Find Authors Whose Names Contain "George"
 
-javascript
-
-Copy code
 ````
 db.authors.find({ name: { $regex: "George", $options: "i" } })
 ````
-## Increment the Published Year by 1
+### Increment the Published Year by 1
 
-javascript
-
-Copy code
 ````
 db.books.updateOne({ published_year: 1869 }, { $inc: {  { published_year: 1 } })
 ````
